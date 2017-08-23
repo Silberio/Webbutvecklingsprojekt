@@ -3,6 +3,9 @@ package com.exempel.martin.client;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.KeyCodes;
+import com.google.gwt.event.dom.client.KeyDownEvent;
+import com.google.gwt.event.dom.client.KeyDownHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -35,7 +38,8 @@ public class ExempelProjekt implements EntryPoint {
 	  oracle.add("*");
 	  oracle.add("%");
 	  oracle.add("+");
-	  
+	  oracle.add("-");
+	  oracle.add("/");
 	 
 		
 	  	addPanel.add(operand1TextBox);
@@ -56,6 +60,15 @@ public class ExempelProjekt implements EntryPoint {
         public void onClick(ClickEvent event) {
           calculate();
         }});
+	    
+	
+		calculateButton.addKeyDownHandler(new KeyDownHandler() {
+			public void onKeyDown(KeyDownEvent event) {
+				if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
+					calculate();
+				}
+			}
+		});
 	   
 	    
   }	
@@ -64,7 +77,7 @@ public class ExempelProjekt implements EntryPoint {
 			
 			final String operator = operatorTextBox.getText().trim();
 			calculateButton.setFocus(true);
-			if ((!operator.equals("*") && !operator.equals("+") && !operator.equals("%")) || !isInteger(operand1TextBox.getText().trim())|| !isInteger(operand2TextBox.getText().trim())) {
+			if ((!operator.equals("*") && !operator.equals("+") && !operator.equals("%") && !operator.contentEquals("-") && !operator.contentEquals("/")) || !isInteger(operand1TextBox.getText().trim())|| !isInteger(operand2TextBox.getText().trim())) {
 		        Window.alert("You have entered a non valid binary operator or one of the operands is not an integer");
 		        
 		        return;
@@ -76,26 +89,64 @@ public class ExempelProjekt implements EntryPoint {
 			 //Multiplication
 			 if(operator.equals("*"))
 			 {
-				 answer=operand1*operand2;
-				 Window.alert("The answer is: " + answer);
-				 
+				 calculateMultiplication(operand1, operand2);
 			 }
 			 //Modulo
 			 else if (operator.equals("%"))
 			 {
-				 answer=operand1%operand2;
-				 Window.alert("The answer is: " + answer);
-				 
+				 calculateModulo(operand1, operand2);
+			 }
+			 //Subtraction
+			 else if (operator.contentEquals("-")) {
+				 calculateSubtraction(operand1, operand2);
+			 }
+			 
+			 else if (operator.contentEquals("/")) {
+				calculateDivision(operand1, operand2); 
 			 }
 			 //addition
-			 else {
-				 
-				 answer=operand1+operand2;
-				 Window.alert("The answer is: " + answer);
-				 
+			 else {				 
+				 calculateAddition(operand1, operand2);
 			 }
 			 
 			}
+		//Methods for individual operators
+		public void calculateMultiplication(int operand1, int operand2) {
+			int answer=operand1*operand2;
+			 Window.alert("The answer is: " + answer);
+		}
+		
+		public void calculateModulo(int operand1, int operand2) {
+			 int answer=operand1%operand2;
+			 Window.alert("The answer is: " + answer);
+		}
+		
+		public void calculateSubtraction(int operand1, int operand2) {
+			 int answer=operand1-operand2;
+			 Window.alert("The answer is: " + answer);
+		}
+		
+		public void calculateAddition(int operand1, int operand2) {
+			 int answer=operand1+operand2;
+			 Window.alert("The answer is: " + answer);
+			 
+		}	
+		
+		public void calculateDivision(int operand1, int operand2) {
+			double i,j;
+			i = operand1;
+			j = operand2;
+			
+			double answer=i/j;
+			if(operand1 == 0 || operand2 == 0) {
+				Window.alert("Cannot divide by 0 (Zero)");
+				return;
+			}
+			else
+				Window.alert("The answer is: " + answer);
+		
+		}
+		
 		//Checkes if a String could be seen as an integer
 		public boolean isInteger( String input )
 		{

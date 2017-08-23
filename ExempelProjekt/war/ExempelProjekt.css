@@ -1,0 +1,19 @@
+* {
+	margin: 2px;
+	padding: 2px;
+}
+
+#calc {
+	background-color: lightgrey;
+	width: 650px;
+	border-style: double;
+	border-color: 
+}
+
+.gwt-TextBox {
+	box-shadow: inset 0 0 2px 2px grey;
+}
+
+.gwt-SuggestBox {
+	box-shadow: inset 0 0 2px 2px grey;
+}
