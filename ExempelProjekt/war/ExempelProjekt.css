@@ -4,10 +4,9 @@
 }
 
 #calc {
-	background-color: lightgrey;
 	width: 650px;
 	border-style: double;
-	border-color: 
+	background: linear-gradient(#01cdfe, #ff71ce);
 }
 
 .gwt-TextBox {

@@ -8,6 +8,7 @@ import com.google.gwt.event.dom.client.KeyDownEvent;
 import com.google.gwt.event.dom.client.KeyDownHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.MultiWordSuggestOracle;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -29,11 +30,13 @@ public class ExempelProjekt implements EntryPoint {
   private MultiWordSuggestOracle oracle = new MultiWordSuggestOracle();
   private SuggestBox operatorTextBox=new SuggestBox(oracle);
 
-	
   /**
    * Entry point method.
    */
   public void onModuleLoad() {
+	  //Panel with number and operator buttons
+	  
+	  
 	  //Suggests the valid operators
 	  oracle.add("*");
 	  oracle.add("%");
@@ -159,6 +162,12 @@ public class ExempelProjekt implements EntryPoint {
 		   {
 		      return false;
 		   }
+		}
+		
+		public String addSumToTable(int operand1, int operand2, int sum, String operator) {
+			String sumString = "" + operand1 + " " + operator + " " + operand2 + " " + "=" + " " + sum;
+			
+			return sumString;	
 		}
 			
 		
